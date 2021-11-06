@@ -106,7 +106,7 @@ module.exports = (on, config) => {
       return networkAdded;
     },
     async changeMetamaskNetwork(network) {
-      if (process.env.NETWORK_NAME) {
+      if (!network) {
         network = process.env.NETWORK_NAME;
       } else {
         network = 'kovan';
@@ -145,7 +145,7 @@ module.exports = (on, config) => {
         if (process.env.NETWORK_NAME) {
           network = process.env.NETWORK_NAME;
         }
-        if (process.env.SECRET_WORDS) {
+        if (!secretWords) {
           secretWords = process.env.SECRET_WORDS;
         }
         if (process.env.PASSWORD) {

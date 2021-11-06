@@ -24,8 +24,8 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add('addMetamaskNetwork', network => {
-  return cy.task('addMetamaskNetwork', network);
+Cypress.Commands.add('addMetamaskNetwork', (networkName, rpcUrl) => {
+  return cy.task('addMetamaskNetwork', { networkName, rpcUrl});
 });
 
 Cypress.Commands.add('changeMetamaskNetwork', network => {

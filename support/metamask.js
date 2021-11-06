@@ -158,14 +158,15 @@ module.exports = {
       process.env.CHAIN_ID
     ) {
       network = {
-        networkName: process.env.NETWORK_NAME,
-        rpcUrl: process.env.RPC_URL,
+        networkName: network.networkName || process.env.NETWORK_NAME,
+        rpcUrl: network.rpcUrl || process.env.RPC_URL,
         chainId: process.env.CHAIN_ID,
         symbol: process.env.SYMBOL,
         blockExplorer: process.env.BLOCK_EXPLORER,
         isTestnet: process.env.IS_TESTNET,
       };
     }
+    await puppeteer.metamaskWindow().bringToFront()
     await puppeteer.waitAndClick(mainPageElements.accountMenu.button);
     await puppeteer.waitAndClick(mainPageElements.accountMenu.settingsButton);
     await puppeteer.waitAndClick(mainPageElements.settingsPage.networksButton);
@@ -204,6 +205,7 @@ module.exports = {
       mainPageElements.networkSwitcher.networkName,
       network.networkName,
     );
+    await puppeteer.switchToCypressWindow();
     return true;
   },
   async acceptAccess() {
@@ -231,25 +233,39 @@ module.exports = {
     return true;
   },
   async confirmTransaction() {
-    const isKovanTestnet = getNetwork().networkName === 'kovan';
-    await puppeteer.metamaskWindow().waitForTimeout(3000);
+    // const isKovanTestnet = getNetwork().networkName === 'kovan';
+    // await puppeteer.metamaskWindow().waitForTimeout(3000);
+    // const notificationPage = await puppeteer.switchToMetamaskNotification();
+    // const currentGasFee = await puppeteer.waitAndGetValue(
+    //   confirmPageElements.gasFeeInput,
+    //   notificationPage,
+    // );
+    // const newGasFee = isKovanTestnet
+    //   ? '1'
+    //   : (Number(currentGasFee) + 10).toString();
+    // await puppeteer.waitAndSetValue(
+    //   newGasFee,
+    //   confirmPageElements.gasFeeInput,
+    //   notificationPage,
+    // );
+    // // metamask reloads popup after changing a fee, you have to wait for this event otherwise transaction will fail
+    // await puppeteer.metamaskWindow().waitForTimeout(3000);
+    // await puppeteer.waitAndClick(
+    //   confirmPageElements.confirmButton,
+    //   notificationPage,
+    // );
+    // await puppeteer.metamaskWindow().waitForTimeout(3000);
+    // return true;
+    debugger
+    await puppeteer.metamaskWindow().waitForTimeout(10000);
     const notificationPage = await puppeteer.switchToMetamaskNotification();
-    const currentGasFee = await puppeteer.waitAndGetValue(
-      confirmPageElements.gasFeeInput,
-      notificationPage,
-    );
-    const newGasFee = isKovanTestnet
-      ? '1'
-      : (Number(currentGasFee) + 10).toString();
-    await puppeteer.waitAndSetValue(
-      newGasFee,
-      confirmPageElements.gasFeeInput,
-      notificationPage,
-    );
-    // metamask reloads popup after changing a fee, you have to wait for this event otherwise transaction will fail
-    await puppeteer.metamaskWindow().waitForTimeout(3000);
+    // await puppeteer.waitAndClick(
+    //   notificationPageElements.rejectButton,
+    //   notificationPage,
+    // );
+    debugger
     await puppeteer.waitAndClick(
-      confirmPageElements.confirmButton,
+      notificationPageElements.confirmButton,
       notificationPage,
     );
     await puppeteer.metamaskWindow().waitForTimeout(3000);
@@ -293,7 +309,7 @@ module.exports = {
       } else {
         await module.exports.changeNetwork(network);
       }
-      walletAddress = await module.exports.getWalletAddress();
+      // walletAddress = await module.exports.getWalletAddress();
       await puppeteer.switchToCypressWindow();
       return true;
     } else {

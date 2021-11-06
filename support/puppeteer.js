@@ -62,6 +62,7 @@ module.exports = {
     for (const page of pages) {
       if (page.url().includes('notification')) {
         await page.bringToFront();
+        debugger
         return page;
       }
     }
