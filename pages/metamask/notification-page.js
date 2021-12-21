@@ -1,7 +1,7 @@
 const notificationPage = '.notification';
 const nextButton = `${notificationPage} .permissions-connect-choose-account__bottom-buttons button:nth-child(2)`;
-const signButton = `${notificationPage} [data-testid="request-signature__sign"]`;
-const cancelSignButton = `${notificationPage} [data-testid="request-signature__footer__cancel-button"]`;
+const signButton = `${notificationPage} .signature-request-footer button:nth-child(2)`;
+const cancelSignButton = `${notificationPage} .signature-request-footer button:nth-child(1)`;
 
 const permissionsPage = '.permissions-connect';
 const connectButton = `${permissionsPage} .permission-approval-container__footers button:nth-child(2)`;
