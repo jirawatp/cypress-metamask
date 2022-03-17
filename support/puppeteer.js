@@ -5,6 +5,12 @@ let puppeteerBrowser;
 let mainWindow;
 let metamaskWindow;
 
+function delay(time) {
+  return new Promise(function(resolve) { 
+      setTimeout(resolve, time)
+  });
+}
+
 module.exports = {
   puppeteerBrowser() {
     return puppeteerBrowser;
@@ -25,6 +31,9 @@ module.exports = {
       ignoreHTTPSErrors: true,
       defaultViewport: null,
     });
+
+    await delay(5000);
+
     return puppeteerBrowser.isConnected();
   },
   async assignWindows() {
