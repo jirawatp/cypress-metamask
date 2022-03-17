@@ -22,7 +22,6 @@ module.exports = {
     return metamaskWindow;
   },
   async init() {
-    console.log('init')
     const debuggerDetails = await fetch('http://localhost:9222/json/version'); //DevSkim: ignore DS137138
     const debuggerDetailsConfig = await debuggerDetails.json();
     const webSocketDebuggerUrl = debuggerDetailsConfig.webSocketDebuggerUrl;
