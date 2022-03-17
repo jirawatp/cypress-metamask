@@ -166,6 +166,7 @@ module.exports = {
         isTestnet: process.env.IS_TESTNET,
       };
     }
+    console.log(1);
     await puppeteer.metamaskWindow().bringToFront()
     await puppeteer.waitAndClick(mainPageElements.accountMenu.button);
     await puppeteer.waitAndClick(mainPageElements.accountMenu.settingsButton);
@@ -284,7 +285,7 @@ module.exports = {
   async getWalletAddress() {
     await puppeteer.waitAndClick(mainPageElements.options.button);
     await puppeteer.waitAndClick(mainPageElements.options.accountDetailsButton);
-    walletAddress = await puppeteer.waitAndGetValue(
+    walletAddress = await puppeteer.waitAndGetDivValue(
       mainPageElements.accountModal.walletAddressInput,
     );
     await puppeteer.waitAndClick(mainPageElements.accountModal.closeButton);
