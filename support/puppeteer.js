@@ -59,12 +59,10 @@ module.exports = {
     };
   },
   async switchToCypressWindow() {
-    console.log(3);
     await mainWindow.bringToFront();
     return true;
   },
   async switchToMetamaskWindow() {
-    console.log(4);
     await metamaskWindow.bringToFront();
     return true;
   },
@@ -72,7 +70,6 @@ module.exports = {
     let pages = await puppeteerBrowser.pages();
     for (const page of pages) {
       if (page.url().includes('notification')) {
-        console.log(5);
         await page.bringToFront();
         debugger
         return page;
