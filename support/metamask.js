@@ -166,7 +166,6 @@ module.exports = {
         isTestnet: process.env.IS_TESTNET,
       };
     }
-    console.log(1);
     await puppeteer.metamaskWindow().bringToFront()
     await puppeteer.waitAndClick(mainPageElements.accountMenu.button);
     await puppeteer.waitAndClick(mainPageElements.accountMenu.settingsButton);
