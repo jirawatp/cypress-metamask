@@ -59,10 +59,12 @@ module.exports = {
     };
   },
   async switchToCypressWindow() {
+    console.log(3);
     await mainWindow.bringToFront();
     return true;
   },
   async switchToMetamaskWindow() {
+    console.log(4);
     await metamaskWindow.bringToFront();
     return true;
   },
@@ -70,6 +72,7 @@ module.exports = {
     let pages = await puppeteerBrowser.pages();
     for (const page of pages) {
       if (page.url().includes('notification')) {
+        console.log(5);
         await page.bringToFront();
         debugger
         return page;
@@ -121,6 +124,12 @@ module.exports = {
     await module.exports.waitFor(selector, page);
     const element = await page.$(selector);
     await element.type(value);
+  },
+  async waitAndGetDivValue(selector, page = metamaskWindow) {
+    await module.exports.waitFor(selector, page);
+    const element = await page.$(selector);
+    const value = await element.evaluate(el => el.textContent);
+    return value;
   },
   async waitAndGetValue(selector, page = metamaskWindow) {
     await module.exports.waitFor(selector, page);
