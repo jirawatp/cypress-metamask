@@ -5,6 +5,12 @@ let puppeteerBrowser;
 let mainWindow;
 let metamaskWindow;
 
+function delay(time) {
+  return new Promise(function(resolve) { 
+      setTimeout(resolve, time)
+  });
+}
+
 module.exports = {
   puppeteerBrowser() {
     return puppeteerBrowser;
@@ -16,6 +22,7 @@ module.exports = {
     return metamaskWindow;
   },
   async init() {
+    console.log('init')
     const debuggerDetails = await fetch('http://localhost:9222/json/version'); //DevSkim: ignore DS137138
     const debuggerDetailsConfig = await debuggerDetails.json();
     const webSocketDebuggerUrl = debuggerDetailsConfig.webSocketDebuggerUrl;
@@ -25,6 +32,9 @@ module.exports = {
       ignoreHTTPSErrors: true,
       defaultViewport: null,
     });
+
+    await delay(5000);
+
     return puppeteerBrowser.isConnected();
   },
   async assignWindows() {
@@ -77,6 +87,7 @@ module.exports = {
   },
 
   async changeAccount(number, page = metamaskWindow) {
+    console.log('changeAccount')
     await page.evaluate(
       ({ number }) => {
         const selector = document.querySelector('.account-menu__accounts').children[number.number - 1]
