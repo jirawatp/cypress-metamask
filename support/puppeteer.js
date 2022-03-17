@@ -122,6 +122,12 @@ module.exports = {
     const element = await page.$(selector);
     await element.type(value);
   },
+  async waitAndGetDivValue(selector, page = metamaskWindow) {
+    await module.exports.waitFor(selector, page);
+    const element = await page.$(selector);
+    const value = await element.evaluate(el => el.textContent);
+    return value;
+  },
   async waitAndGetValue(selector, page = metamaskWindow) {
     await module.exports.waitFor(selector, page);
     const element = await page.$(selector);

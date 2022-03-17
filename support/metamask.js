@@ -284,7 +284,7 @@ module.exports = {
   async getWalletAddress() {
     await puppeteer.waitAndClick(mainPageElements.options.button);
     await puppeteer.waitAndClick(mainPageElements.options.accountDetailsButton);
-    walletAddress = await puppeteer.waitAndGetValue(
+    walletAddress = await puppeteer.waitAndGetDivValue(
       mainPageElements.accountModal.walletAddressInput,
     );
     await puppeteer.waitAndClick(mainPageElements.accountModal.closeButton);
