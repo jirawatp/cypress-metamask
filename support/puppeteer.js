@@ -22,7 +22,9 @@ module.exports = {
     return metamaskWindow;
   },
   async init() {
-    const debuggerDetails = await fetch('http://localhost:9222/json/version'); //DevSkim: ignore DS137138
+    console.log("\n init debug 1\n")
+    const debuggerDetails = await fetch('http://127.0.0.1:9222/json/version'); //DevSkim: ignore DS137138
+    console.log("\n init debug 2\n")
     const debuggerDetailsConfig = await debuggerDetails.json();
     const webSocketDebuggerUrl = debuggerDetailsConfig.webSocketDebuggerUrl;
 
@@ -38,10 +40,13 @@ module.exports = {
   },
   async assignWindows() {
     let pages = await puppeteerBrowser.pages();
+    console.log("\n assignWindows")
     for (const page of pages) {
-      if (page.url().includes('#/tests')) {
+      if (page.url().includes('#/specs')) {
+        console.log("\n page url contains specs")
         mainWindow = page;
       } else if (page.url().includes('extension')) {
+        console.log("\n page url contains extension")
         metamaskWindow = page;
       }
     }
